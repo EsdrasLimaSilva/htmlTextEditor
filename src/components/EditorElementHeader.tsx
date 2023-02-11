@@ -1,16 +1,18 @@
+import { EditorUtilsType } from "../hooks/useEditor";
+
 interface Props {
    elementTag: string;
-   changeElement: Function;
    elementKey: string;
+   utils: EditorUtilsType;
 }
 
-const EditorElementHeader = ({ elementTag, changeElement, elementKey }: Props) => {
+const EditorElementHeader = ({ elementTag, utils, elementKey }: Props) => {
    return (
       <div className="editor-element-header">
          <select
             defaultValue={elementTag}
             className="bg-inherit border-none outline-none text-gray-50"
-            onChange={(e) => changeElement(elementKey, e.target.value)}
+            onChange={(e) => utils.changeElement(elementKey, e.target.value)}
          >
             <option value="p">p</option>
             <option value="h1">h1</option>
@@ -18,7 +20,11 @@ const EditorElementHeader = ({ elementTag, changeElement, elementKey }: Props) =
             <option value="h3">h3</option>
          </select>
 
-         <button type="button" className="text-gray-50">
+         <button
+            type="button"
+            className="text-gray-50"
+            onClick={() => utils.removeElement(elementKey)}
+         >
             remove
          </button>
       </div>

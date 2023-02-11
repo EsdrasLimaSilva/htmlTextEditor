@@ -15,7 +15,10 @@ const Editor = ({ editorState, editorUtils }: Props) => {
          onKeyDown={(e) => {
             if (e.key == "Enter") {
                e.preventDefault();
-               editorUtils.pushElement("p");
+               const relativeIndex = editorUtils.findElementIndex(
+                  (e.target as HTMLTextAreaElement).id,
+               );
+               editorUtils.appendParagraph(relativeIndex);
                return false;
             }
          }}

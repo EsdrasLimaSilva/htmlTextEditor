@@ -1,4 +1,4 @@
-import { ChangeEvent, ChangeEventHandler } from "react";
+import { ChangeEvent, useRef } from "react";
 import { EditorUtilsType } from "../hooks/useEditor";
 import EditorElementHeader from "./EditorElementHeader";
 
@@ -10,6 +10,8 @@ interface Props {
 }
 
 const EditorElement = ({ elementTag, elementKey, content, utils }: Props) => {
+   const editorElementRef = useRef(null);
+
    function handleChange(e: ChangeEvent<HTMLTextAreaElement>) {
       const textArea = e.target as HTMLTextAreaElement;
       textArea.style.height = `0`;
@@ -18,12 +20,8 @@ const EditorElement = ({ elementTag, elementKey, content, utils }: Props) => {
    }
 
    return (
-      <div className="editor-element">
-         <EditorElementHeader
-            elementTag={elementTag}
-            elementKey={elementKey}
-            changeElement={utils.changeElement}
-         />
+      <div className="editor-element" ref={editorElementRef}>
+         <EditorElementHeader elementTag={elementTag} elementKey={elementKey} utils={utils} />
 
          <textarea id={elementKey} onChange={handleChange} value={content}></textarea>
       </div>

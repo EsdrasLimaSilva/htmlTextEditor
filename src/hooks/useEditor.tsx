@@ -4,6 +4,7 @@ import { v4 as uuid } from "uuid";
 export interface EditorUtilsType {
    findElementIndex(elementKey: string): number;
    pushElement(elementTag: string): void;
+   appendParagraph(relativeCurrentIndex: number): void;
    pushImage(): void;
    updateContent(elementId: string, newContent: string): void;
    updateImageData(source: string, altText: string, imageId: string): void;
@@ -33,6 +34,19 @@ export default function useEditor(editorData?: EditorDataType) {
          const elementId = uuid();
          setFocusedElement(elementId);
          setEditorState((prev) => [...prev, { tag: elementTag, content: "", key: elementId }]);
+      },
+
+      appendParagraph(relativeCurrentIndex: number) {
+         const firstPart = [...editorState.slice(0, relativeCurrentIndex + 1)];
+         const secondPart = [...editorState.slice(relativeCurrentIndex + 1, editorState.length)];
+
+         const newParagraphId = uuid();
+         firstPart.push({ tag: "p", content: "", key: newParagraphId });
+
+         setFocusedElement(newParagraphId);
+         const newState = [...firstPart, ...secondPart];
+
+         setEditorState(newState);
       },
 
       pushImage() {

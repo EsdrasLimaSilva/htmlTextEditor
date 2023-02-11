@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import Toolbar from "./components/Toolbar";
 import Editor from "./containers/Editor";
 import useEditor from "./hooks/useEditor";
 
