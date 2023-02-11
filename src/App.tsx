@@ -3,6 +3,7 @@ import { v4 as uuid } from "uuid";
 import EditorElement from "./components/EditorElement";
 import EditorImageElement from "./components/EditorImageElement";
 import Toolbar from "./components/Toolbar";
+import useEditor from "./hooks/useEditor";
 
 const initialState = [
    {
@@ -38,67 +39,27 @@ const initialState = [
    {
       tag: "p",
       content:
-         "Vincent Willem van Gogh nasceu em Groot Zundert, u…sou a infância melancólico e inclinado à solidão.",
+         "Vincent Willem van Gogh nasceu em Groot Zundert, uma pequena aldeia holandesa, no dia 30 de março de 1853. Filho de um pastor calvinista, era o primogênito de seis filhos. Passou a infância melancólico e inclinado à solidão.",
       key: "fcedc400-fc4c-46c9-b7cb-5eebdee2ee2f",
+   },
+
+   {
+      tag: "p",
+      content:
+         "Gostava muito de ler, sobretudo histórias sobre os oprimidos, o que posteriormente justifica seu interesse pelo sofrimento e injustiças sociais. Em 1865 ingressou em um internato provinciano.",
+      key: "lkldc400-fc4c-4671-b7cb-5jdbdee2ee2f",
    },
 ];
 
 function App() {
-   const [editorState, setEditorState] =
-      useState<{ tag: string; key: string; content?: string; source?: string; altText?: string }[]>(
-         initialState,
-      );
+   // const [editorState, setEditorState] =
+   //    useState<{ tag: string; key: string; content?: string; source?: string; altText?: string }[]>(
+   //       initialState,
+   //    );
 
-   const [focusedElement, setFocusedElement] = useState("");
+   const { editorState, editorUtils, focusedElement } = useEditor(initialState);
 
    const previewRef = useRef(null);
-
-   function findElementIndex(elementKey: string) {
-      const index = editorState.findIndex((el) => el.key == elementKey);
-      return index;
-   }
-
-   function pushElement(elementTag: string) {
-      const elementId = uuid();
-      setFocusedElement(elementId);
-      setEditorState((prev) => [...prev, { tag: elementTag, content: "", key: elementId }]);
-   }
-
-   function pushImage() {
-      const imageId = uuid();
-      setFocusedElement(imageId);
-      setEditorState((prev) => [...prev, { tag: "img", key: imageId, source: "", altText: "" }]);
-   }
-
-   function updateContent(elementId: string, newContent: string) {
-      const index = editorState.findIndex((el) => el.key == elementId);
-      const newState = [...editorState];
-      newState[index].content = newContent;
-
-      setEditorState(newState);
-   }
-
-   function updateImageData(source: string, altText: string, imageId: string) {
-      const index = findElementIndex(imageId);
-      const newState = [...editorState];
-      newState[index].source = source;
-      newState[index].altText = altText;
-
-      setEditorState(newState);
-   }
-
-   function changeElement(key: string, newTag: string) {
-      const index = findElementIndex(key);
-      const newState = [...editorState];
-      newState[index].tag = newTag;
-
-      setEditorState(newState);
-   }
-
-   function removeElement(key: string) {
-      const newState = editorState.filter((el) => el.key != key);
-      setEditorState(newState);
-   }
 
    useEffect(() => {
       const previewElement = previewRef.current ? (previewRef.current as HTMLDivElement) : null;
@@ -119,7 +80,7 @@ function App() {
 
    return (
       <main className="h-screen w-screen flex flex-row justify-center items-center gap-4 bg-gray-100">
-         <Toolbar pushElement={pushElement} pushImage={pushImage} />
+         <Toolbar utils={editorUtils} />
 
          <div
             id="editor"
@@ -127,7 +88,7 @@ function App() {
             onKeyDown={(e) => {
                if (e.key == "Enter") {
                   e.preventDefault();
-                  pushElement("p");
+                  editorUtils.pushElement("p");
                   return false;
                }
             }}
@@ -138,7 +99,7 @@ function App() {
                      <EditorImageElement
                         key={element.key}
                         elementkey={element.key}
-                        updateImageData={updateImageData}
+                        updateImageData={editorUtils.updateImageData}
                         source={String(element.source)}
                         alt={String(element.altText)}
                      />
@@ -149,8 +110,7 @@ function App() {
                         key={element.key}
                         elementKey={element.key}
                         elementTag={element.tag}
-                        updateContent={updateContent}
-                        changeElement={changeElement}
+                        utils={editorUtils}
                         content={element.content || ""}
                      />
                   );

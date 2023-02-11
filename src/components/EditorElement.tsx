@@ -1,26 +1,20 @@
 import { ChangeEvent, ChangeEventHandler } from "react";
+import { EditorUtilsType } from "../hooks/useEditor";
 import EditorElementHeader from "./EditorElementHeader";
 
 interface Props {
    elementKey: string;
-   updateContent: Function;
    elementTag: string;
-   changeElement: Function;
    content: string;
+   utils: EditorUtilsType;
 }
 
-const EditorElement = ({
-   elementTag,
-   elementKey,
-   updateContent,
-   changeElement,
-   content,
-}: Props) => {
+const EditorElement = ({ elementTag, elementKey, content, utils }: Props) => {
    function handleChange(e: ChangeEvent<HTMLTextAreaElement>) {
       const textArea = e.target as HTMLTextAreaElement;
       textArea.style.height = `0`;
       textArea.style.height = `${textArea.scrollHeight + 10}px`;
-      updateContent(elementKey, String(textArea.value));
+      utils.updateContent(elementKey, String(textArea.value));
    }
 
    return (
@@ -28,7 +22,7 @@ const EditorElement = ({
          <EditorElementHeader
             elementTag={elementTag}
             elementKey={elementKey}
-            changeElement={changeElement}
+            changeElement={utils.changeElement}
          />
 
          <textarea

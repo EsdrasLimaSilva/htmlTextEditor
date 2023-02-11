@@ -1,6 +1,16 @@
 import { useState } from "react";
 import { v4 as uuid } from "uuid";
 
+export interface EditorUtilsType {
+   findElementIndex(elementKey: string): number;
+   pushElement(elementTag: string): void;
+   pushImage(): void;
+   updateContent(elementId: string, newContent: string): void;
+   updateImageData(source: string, altText: string, imageId: string): void;
+   changeElement(key: string, newTag: string): void;
+   removeElement(key: string): void;
+}
+
 type EditorDataType = {
    tag: string;
    key: string;
@@ -11,6 +21,7 @@ type EditorDataType = {
 
 export default function useEditor(editorData?: EditorDataType) {
    const [editorState, setEditorState] = useState(editorData ? editorData : []);
+   const [focusedElement, setFocusedElement] = useState("");
 
    const editorUtils = {
       findElementIndex(elementKey: string) {
@@ -20,14 +31,14 @@ export default function useEditor(editorData?: EditorDataType) {
 
       pushElement(elementTag: string) {
          const elementId = uuid();
+         setFocusedElement(elementId);
          setEditorState((prev) => [...prev, { tag: elementTag, content: "", key: elementId }]);
-         return elementId;
       },
 
       pushImage() {
          const imageId = uuid();
+         setFocusedElement(imageId);
          setEditorState((prev) => [...prev, { tag: "img", key: imageId, source: "", altText: "" }]);
-         return imageId;
       },
 
       updateContent(elementId: string, newContent: string) {
@@ -61,5 +72,5 @@ export default function useEditor(editorData?: EditorDataType) {
       },
    };
 
-   return { editorState, editorUtils };
+   return { editorState, editorUtils, focusedElement };
 }
