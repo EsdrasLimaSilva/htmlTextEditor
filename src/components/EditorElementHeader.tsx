@@ -6,7 +6,7 @@ interface Props {
 
 const EditorElementHeader = ({ elementTag, changeElement, elementKey }: Props) => {
    return (
-      <div className="w-fit bg-gray-800 overflow-hidden text-lg px-2 flex flex-row gap-2">
+      <div className="editor-element-header">
          <select
             defaultValue={elementTag}
             className="bg-inherit border-none outline-none text-gray-50"

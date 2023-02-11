@@ -1,0 +1,182 @@
+$black: #151429;
+$blue: rgb(23, 24, 82);
+$gray: #f2f2f2;
+$light-blue: rgb(0, 119, 255);
+$orange: rgb(255, 94, 0);
+$purple: #1c0b36;
+$transparent: #33333330;
+$white: #fdfdfd;
+
+@mixin header {
+   background-color: $purple;
+   color: $white;
+   display: flex;
+   flex-direction: row;
+   font-size: 1rem;
+   font-weight: bold;
+   gap: 4px;
+   overflow: hidden;
+   padding: 4px;
+   width: fit-content;
+}
+
+* {
+   box-sizing: border-box;
+   font-family: Arial, Helvetica, sans-serif;
+   margin: 0;
+   padding: 0;
+}
+
+a {
+   color: rgb(207, 7, 40);
+   font-weight: bold;
+}
+
+h1,
+h2,
+h3 {
+   color: $blue;
+   display: block;
+   font-size: 1.6rem;
+   font-weight: 800;
+   margin-top: 50px;
+   padding-left: 20px;
+   width: fit-content;
+}
+
+h2 {
+   font-size: 1.4rem;
+   font-weight: 700;
+}
+
+h3 {
+   font-size: 1.2rem;
+   font-weight: 600;
+}
+
+img {
+   display: block;
+   margin: 20px auto;
+   max-width: 600px;
+}
+
+button {
+   background-color: transparent;
+   border: none;
+   color: $white;
+   cursor: pointer;
+   font-size: inherit;
+   font-weight: bold;
+}
+
+textarea,
+input {
+   background: transparent;
+   font-size: 1rem;
+   overflow: hidden;
+   padding: 10px;
+   width: 100%;
+}
+
+body {
+   overflow-x: hidden;
+}
+
+select {
+   background-color: inherit;
+   border: none;
+   color: $white;
+   font-size: inherit;
+   outline: none;
+}
+
+main {
+   background: $gray;
+   display: block;
+   min-height: 100vh;
+   overflow-x: hidden;
+   padding: 16px;
+   width: 100vw;
+}
+
+#preview {
+   background-color: $white;
+   box-shadow: 1px 1px 2px $transparent;
+   margin: 0 auto 0 400px;
+   max-width: 700px;
+   overflow-x: hidden;
+   overflow-y: auto;
+   width: 100vw;
+}
+
+#preview > p {
+   color: $black;
+   font-size: 1rem;
+   font-weight: 400;
+   line-height: 26px;
+   margin: 30px 0;
+   padding: 0 20px;
+}
+
+.toolbar {
+   align-items: center;
+   display: flex;
+   flex-direction: column;
+   gap: 4px;
+   justify-content: center;
+   left: 300px;
+   padding: 4px;
+   position: fixed;
+   top: 0;
+   user-select: none;
+
+   button {
+      background: $orange;
+      border-radius: 100%;
+      color: $white;
+      height: 32px;
+      width: 32px;
+   }
+}
+
+.editor {
+   background: $white;
+   border: 2px solid $black;
+   box-shadow: 1px 1px 2px $transparent;
+   display: flex;
+   flex-direction: column;
+   gap: 16px;
+   height: 100vh;
+   left: 0;
+   overflow-x: hidden;
+   overflow-y: auto;
+   padding: 8px;
+   position: fixed;
+   top: 0;
+   width: 300px;
+}
+
+.editor-element {
+   width: 100%;
+
+   textarea {
+      border: 2px solid $black;
+      outline: none;
+
+      &:focus {
+         border: 2px solid $light-blue;
+      }
+   }
+}
+
+.editor-element-header {
+   @include header();
+}
+
+.editor-image-element {
+   .header {
+      @include header();
+      padding: 8px;
+      gap: 6px;
+   }
+}

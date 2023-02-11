@@ -11,8 +11,7 @@ interface Props {
 const Editor = ({ editorState, editorUtils }: Props) => {
    return (
       <div
-         id="editor"
-         className="w-[300px] h-screen border-2 border-slate-800 shadow-md bg-gray-50 p-2 flex flex-col gap-2 overflow-x-hidden overflow-y-auto fixed top-0 left-0"
+         className="editor"
          onKeyDown={(e) => {
             if (e.key == "Enter") {
                e.preventDefault();

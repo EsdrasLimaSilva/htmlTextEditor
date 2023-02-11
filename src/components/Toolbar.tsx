@@ -7,7 +7,7 @@ interface Props {
 
 const Toolbar = ({ utils }: Props) => {
    return (
-      <div id="toolbar" className="fixed top-0 left-[300px] p-4  flex flex-col gap-4 select-none">
+      <div className="toolbar">
          <ToolButton element="p" pushElement={utils.pushElement}>
             p
          </ToolButton>

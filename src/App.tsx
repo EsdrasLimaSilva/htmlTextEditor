@@ -72,14 +72,10 @@ function App() {
    }, [focusedElement]);
 
    return (
-      <main className="h-screen w-screen flex flex-row justify-end items-start gap-4 bg-gray-100 overflow-x-hidden p-8">
+      <main>
          <Editor editorState={editorState} editorUtils={editorUtils} />
 
-         <div
-            ref={previewRef}
-            id="preview"
-            className="w-screen max-w-[700px] border-2  shadow-md  p-2 ml-[400px] mr-auto bg-white"
-         ></div>
+         <div ref={previewRef} id="preview"></div>
       </main>
    );
 }

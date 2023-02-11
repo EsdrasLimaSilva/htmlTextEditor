@@ -18,19 +18,14 @@ const EditorElement = ({ elementTag, elementKey, content, utils }: Props) => {
    }
 
    return (
-      <div>
+      <div className="editor-element">
          <EditorElementHeader
             elementTag={elementTag}
             elementKey={elementKey}
             changeElement={utils.changeElement}
          />
 
-         <textarea
-            id={elementKey}
-            className="border-2 border-gray-800 p-2 focus:border-blue-600 outline-none"
-            onChange={handleChange}
-            value={content}
-         ></textarea>
+         <textarea id={elementKey} onChange={handleChange} value={content}></textarea>
       </div>
    );
 };

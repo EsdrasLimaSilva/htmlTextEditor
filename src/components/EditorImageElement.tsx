@@ -24,8 +24,8 @@ const EditorImageElement = ({ elementkey, updateImageData, source, alt }: Props)
    };
 
    return (
-      <div>
-         <div className="w-fit bg-gray-800 overflow-hidden text-lg px-2 flex flex-row gap-2">
+      <div className="editor-image-element">
+         <div className="header w-fit bg-gray-800 overflow-hidden text-lg px-2 flex flex-row gap-2">
             <p className="text-gray-50 text-lg">img</p>
 
             <button type="button" className="text-gray-50">
