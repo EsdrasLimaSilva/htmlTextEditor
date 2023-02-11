@@ -11,7 +11,7 @@ export interface EditorUtilsType {
    removeElement(key: string): void;
 }
 
-type EditorDataType = {
+export type EditorDataType = {
    tag: string;
    key: string;
    content?: string;
@@ -50,7 +50,7 @@ export default function useEditor(editorData?: EditorDataType) {
       },
 
       updateImageData(source: string, altText: string, imageId: string) {
-         const index = this.findElementIndex(imageId);
+         const index = editorUtils.findElementIndex(imageId);
          const newState = [...editorState];
          newState[index].source = source;
          newState[index].altText = altText;
@@ -59,7 +59,7 @@ export default function useEditor(editorData?: EditorDataType) {
       },
 
       changeElement(key: string, newTag: string) {
-         const index = this.findElementIndex(key);
+         const index = editorUtils.findElementIndex(key);
          const newState = [...editorState];
          newState[index].tag = newTag;
 
