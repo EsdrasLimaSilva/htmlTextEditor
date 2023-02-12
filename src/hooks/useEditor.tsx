@@ -11,6 +11,7 @@ export interface EditorUtilsType {
    changeElement(key: string, newTag: string): void;
    removeElement(key: string): void;
    save(): void;
+   setState(data: EditorDataType): void;
 }
 
 export type EditorDataType = {

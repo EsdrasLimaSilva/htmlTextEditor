@@ -6,9 +6,10 @@ interface Props {
    updateImageData: Function;
    source: string;
    alt: string;
+   removeElement(key: string): void;
 }
 
-const EditorImageElement = ({ elementkey, updateImageData, source, alt }: Props) => {
+const EditorImageElement = ({ elementkey, updateImageData, source, alt, removeElement }: Props) => {
    const imageData = useRef({ source: source, alt: alt });
 
    const handleInput = (operation: string, text: string) => {
@@ -28,7 +29,11 @@ const EditorImageElement = ({ elementkey, updateImageData, source, alt }: Props)
          <div className="header w-fit bg-gray-800 overflow-hidden text-lg px-2 flex flex-row gap-2">
             <p className="text-gray-50 text-lg">img</p>
 
-            <button type="button" className="text-gray-50">
+            <button
+               type="button"
+               className="text-gray-50"
+               onClick={() => removeElement(elementkey)}
+            >
                remove
             </button>
          </div>

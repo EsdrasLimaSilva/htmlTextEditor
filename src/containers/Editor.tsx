@@ -1,14 +1,14 @@
+import { useContext } from "react";
 import EditorElement from "../components/EditorElement";
 import EditorImageElement from "../components/EditorImageElement";
 import Toolbar from "../components/Toolbar";
-import { EditorDataType, EditorUtilsType } from "../hooks/useEditor";
+import { EditorContextProvider } from "../contexts/editorContext";
 
-interface Props {
-   editorState: EditorDataType;
-   editorUtils: EditorUtilsType;
-}
+const Editor = () => {
+   const editorContext = useContext(EditorContextProvider);
+   const editorUtils = editorContext!.editorUtils;
+   const editorState = editorContext!.editorState;
 
-const Editor = ({ editorState, editorUtils }: Props) => {
    return (
       <div
          className="editor"
@@ -34,6 +34,7 @@ const Editor = ({ editorState, editorUtils }: Props) => {
                      updateImageData={editorUtils.updateImageData}
                      source={String(element.source)}
                      alt={String(element.altText)}
+                     removeElement={editorUtils.removeElement}
                   />
                );
             } else {

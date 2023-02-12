@@ -1,9 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import Editor from "./containers/Editor";
+import EditorContext, { EditorContextProvider } from "./contexts/editorContext";
 import useEditor from "./hooks/useEditor";
 
 function App() {
-   const { editorState, editorUtils, focusedElement } = useEditor();
+   // const { editorState, editorUtils, focusedElement } = useEditor();
+   const { editorState, editorUtils, focusedElement } = useContext(EditorContextProvider)!;
 
    const previewRef = useRef(null);
 
@@ -32,7 +34,7 @@ function App() {
 
    return (
       <main>
-         <Editor editorState={editorState} editorUtils={editorUtils} />
+         <Editor />
 
          <div ref={previewRef} id="preview"></div>
       </main>
