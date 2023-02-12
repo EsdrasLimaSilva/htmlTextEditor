@@ -48,6 +48,10 @@ const Editor = ({ editorState, editorUtils }: Props) => {
                );
             }
          })}
+
+         <button type="button" className="save-button" onClick={() => editorUtils.save()}>
+            save
+         </button>
       </div>
    );
 };

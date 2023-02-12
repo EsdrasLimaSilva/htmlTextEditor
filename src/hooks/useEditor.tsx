@@ -10,6 +10,7 @@ export interface EditorUtilsType {
    updateImageData(source: string, altText: string, imageId: string): void;
    changeElement(key: string, newTag: string): void;
    removeElement(key: string): void;
+   save(): void;
 }
 
 export type EditorDataType = {
@@ -25,6 +26,10 @@ export default function useEditor(editorData?: EditorDataType) {
    const [focusedElement, setFocusedElement] = useState("");
 
    const editorUtils = {
+      setState(data: EditorDataType) {
+         setEditorState(data);
+      },
+
       findElementIndex(elementKey: string) {
          const index = editorState.findIndex((el) => el.key == elementKey);
          return index;
@@ -83,6 +88,10 @@ export default function useEditor(editorData?: EditorDataType) {
       removeElement(key: string) {
          const newState = editorState.filter((el) => el.key != key);
          setEditorState(newState);
+      },
+
+      save() {
+         localStorage.setItem("localData", JSON.stringify(editorState));
       },
    };
 
