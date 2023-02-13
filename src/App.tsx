@@ -1,13 +1,10 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect } from "react";
 import Editor from "./containers/Editor";
-import EditorContext, { EditorContextProvider } from "./contexts/editorContext";
-import useEditor from "./hooks/useEditor";
+import Preview from "./containers/Preview";
+import { EditorContextProvider } from "./contexts/editorContext";
 
 function App() {
-   // const { editorState, editorUtils, focusedElement } = useEditor();
-   const { editorState, editorUtils, focusedElement } = useContext(EditorContextProvider)!;
-
-   const previewRef = useRef(null);
+   const { editorUtils, focusedElement } = useContext(EditorContextProvider)!;
 
    useEffect(() => {
       if (typeof window != undefined && localStorage.getItem("localData")) {
@@ -16,27 +13,13 @@ function App() {
    }, []);
 
    useEffect(() => {
-      const previewElement = previewRef.current ? (previewRef.current as HTMLDivElement) : null;
-      previewElement!.innerHTML = "";
-
-      for (const element of editorState) {
-         if (element.tag == "img") {
-            previewElement!.innerHTML += `<img src="${element.source}" alt="${element.altText}" draggable="false" />`;
-         } else {
-            previewElement!.innerHTML += `<${element.tag}>${element.content}</${element.tag}>`;
-         }
-      }
-   });
-
-   useEffect(() => {
       document.getElementById(focusedElement)?.focus();
    }, [focusedElement]);
 
    return (
       <main>
          <Editor />
-
-         <div ref={previewRef} id="preview"></div>
+         <Preview />
       </main>
    );
 }

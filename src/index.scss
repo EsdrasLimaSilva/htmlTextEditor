@@ -102,7 +102,7 @@ main {
    width: 100vw;
 }
 
-#preview {
+.preview {
    background-color: $white;
    box-shadow: 1px 1px 2px $transparent;
    margin: 0 auto 0 400px;
@@ -111,6 +111,8 @@ main {
    overflow-y: auto;
    width: 100vw;
    padding: 20px;
+   height: auto;
+   overflow-y: hidden;
 
    p {
       color: $black;
